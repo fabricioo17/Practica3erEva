@@ -153,7 +153,7 @@ while (resultado.next()) {
                 //Cerrar conexion
                 conexion.close();
 
-                new Jugador(nombre,IDguardada,ganadas,partidas);
+              return   new Jugador(nombre,IDguardada,ganadas,partidas);
             }
             // Cerrar Statement
             sentencia.close();

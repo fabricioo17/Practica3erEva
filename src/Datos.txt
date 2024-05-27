@@ -1,4 +1,0 @@
-ID: 1, nombre: yo, partidasGanadas: 0, partidasJugadas: 0, porcentajeGanadas: 0.0%
-ID: 1, nombre: yo, partidasGanadas: 0, partidasJugadas: 1, porcentajeGanadas: 0.0%
-ID: 1, nombre: yo, partidasGanadas: 0, partidasJugadas: 1, porcentajeGanadas: 0.0%
-ID: 1, nombre: yo, partidasGanadas: 0, partidasJugadas: 1, porcentajeGanadas: 0.0%

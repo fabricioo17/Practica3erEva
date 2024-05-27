@@ -10,6 +10,7 @@ import java.util.HashMap;
 public class PartidaGuardada {
 
     static File fichero;
+    static File ficheroJugadores;
     static  FileWriter sobreEscrbir;
     public static void main(String[] args) {
         Tablero tablero = new Tablero();
@@ -22,28 +23,29 @@ cargarPiezas(tablero,"pruebaultimo");
 
     public static void cargarPartida(Tablero nuevo,String nombre){
         cargarPiezas(nuevo,nombre);
-        borrarFichero();
+        borrarFichero(fichero);
     }
 
     public static HashMap cargarInforJugador (String nombre) {
 
-        HashMap <String,String>listaInfo =new HashMap<>();
+        HashMap <Integer,String>listaInfo =new HashMap<>();
         if (confirmarExistenciaFichero(nombre)) {
-            fichero = new File("src/JUgadoresInf" + nombre + ".txt");
+            ficheroJugadores = new File("src/jugadoresInf" + nombre + ".txt");
             String ID;
             String linea;
             String roja;
             String[] separarLinea;
             String[] separarDato;
             try {
-                FileReader lector = new FileReader(fichero);
+                FileReader lector = new FileReader(ficheroJugadores);
                 BufferedReader lectura = new BufferedReader(lector);
                 linea = lectura.readLine();
+                int i=0;
                 while (linea != null) {
 
                     if (linea.startsWith("turno")){
                         separarLinea = linea.split("=");
-                        listaInfo.put("turno",separarLinea[1]);//obtenemos el turno en que se guardo la partida
+                        listaInfo.put(i,separarLinea[1]);//obtenemos el turno en que se guardo la partida
                     }
                     else {
 
@@ -60,11 +62,14 @@ cargarPiezas(tablero,"pruebaultimo");
                         separarDato = separarLinea[0].split("=");
                         //------------separamos el dato mediante su "="
                             ID=separarDato[1];
-                        listaInfo.put(ID,roja);
+                        listaInfo.put(i,ID);
                     }
                     linea = lectura.readLine();
+
+                            i++;
                 }
                 lector.close();
+                borrarFichero(ficheroJugadores);
                 return listaInfo;
             } catch (Exception e) {
                 System.out.println("no xiste esa partida");
@@ -74,13 +79,13 @@ cargarPiezas(tablero,"pruebaultimo");
         return null;
     }
 public static  void guardarInfoJugadores(int turno,  String ID1 , String ID2,String nombre){
-    fichero= new File("src/PartidaGuardada"+nombre+".txt");
+    ficheroJugadores= new File("src/jugadoresInf"+nombre+".txt");
     String infoTurno="turno="+ turno;
     String infoJugador1="jugador1=" + ID1+ ", rojo=true";
     String infoJugador2="jugador2=" + ID2+ ", rojo=false";
-        guardarInformacion(infoJugador1);
-        guardarInformacion(infoJugador2);
-        guardarInformacion(infoTurno);
+        guardarInformacion(infoJugador1,ficheroJugadores);
+        guardarInformacion(infoJugador2,ficheroJugadores);
+        guardarInformacion(infoTurno,ficheroJugadores);
 }
 
     public static void guardarPiezas(Tablero tablero,String nombre){
@@ -90,34 +95,36 @@ public static  void guardarInfoJugadores(int turno,  String ID1 , String ID2,Str
             for (int j=0;j<=7;j++) {
                 if (table[i][j] instanceof Caballo){
                     String contenido = ((Caballo) table[i][j]).mostrarDatos();
-                    guardarInformacion(contenido);
+                    guardarInformacion(contenido,fichero);
                  }
                 if (table[i][j] instanceof Rey){
                     String contenido = ((Rey) table[i][j]).mostrarDatosRey();
-                    guardarInformacion(contenido);
+                    guardarInformacion(contenido,fichero);
                 }
                 if (table[i][j] instanceof Reina){
                     String contenido = ((Reina) table[i][j]).mostrarDatosReina();
-                    guardarInformacion(contenido);
+                    guardarInformacion(contenido,fichero);
                 }
                 if (table[i][j] instanceof Torre){
                     String contenido = ((Torre) table[i][j]).mostrarDatosTorre();
-                    guardarInformacion(contenido);
+                    guardarInformacion(contenido,fichero);
                 }
                 if (table[i][j] instanceof Alfil){
                     String contenido = ((Alfil) table[i][j]).mostrarDatosAlfil();
-                    guardarInformacion(contenido);
+                    guardarInformacion(contenido,fichero);
                 }
                 if (table[i][j] instanceof Peon){
                     String contenido = ((Peon) table[i][j]).mostrarDatosPeon();
-                    guardarInformacion(contenido);
+                    guardarInformacion(contenido,fichero);
+                    System.out.println("partida guardada");
                 }
             }
 
         }
+
     }
 
-    public static void guardarInformacion(String contenido){;
+    public static void guardarInformacion(String contenido, File fichero){;
         try {
              sobreEscrbir = new FileWriter(fichero,true);// true append es para no machacar la informacion obtenida
             sobreEscrbir.write(contenido + "\n");
@@ -180,7 +187,7 @@ if (confirmarExistenciaFichero(nombre)) {
 
     }
 
-    public static void borrarFichero (){
+    public static void borrarFichero (File fichero){
 
        try {
            Files.delete(fichero.toPath());
@@ -190,7 +197,16 @@ if (confirmarExistenciaFichero(nombre)) {
        }
 
     }
+    public static void borrarFicheroJugadores (){
 
+        try {
+            Files.delete(ficheroJugadores.toPath());
+        }
+        catch (Exception e){
+            System.out.println("no se pudo eliminar");
+        }
+
+    }
 public static boolean confirmarExistenciaFichero(String nombre){
     Path ruta = Path.of("src/PartidaGuardada" + nombre + ".txt"); // transformamos el string en una ruta
         try {

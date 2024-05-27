@@ -1,7 +1,9 @@
 import Jugadores.Jugador;
 import Tablero.Tablero;
 import baseDatos.*;
+import utillidades.PartidaGuardada;
 
+import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -168,16 +170,22 @@ public class Main {
                               System.out.println("el color rojo sera el jugador: " + jugador1.getNombre());
                               System.out.println("y el color verde sera el jugador: " + jugador2.getNombre());
                               tablero.startTablero();
-                              tablero.play(teclado, jugador1.getId(), jugador2.getId());
+                              tablero.play(teclado, jugador1.getId(), jugador2.getId(),0);
                               break;
                           case 2:
                               System.out.println("ingrese el nombre de la partida");
                               String nombre = teclado.next();
+                              PartidaGuardada.cargarPartida(tablero,nombre);
+                             HashMap <Integer,String>lista= PartidaGuardada.cargarInforJugador(nombre);
+                             String IDjugador1= lista.get(0);
+                              String IDjugador2= lista.get(1);
+                              int turnoPartida= Integer.parseInt(lista.get(2));
 
+                              tablero.play(teclado,IDjugador1,IDjugador2,turnoPartida);
                               break;
 
                           case 3:
-
+                              System.out.println("adios");
                               break;
 
                           default:

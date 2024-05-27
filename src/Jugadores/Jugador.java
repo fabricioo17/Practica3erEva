@@ -26,15 +26,6 @@ public class Jugador {
         this.id = teclado.next();
         this.fecha = LocalDate.now();
     }
-
-    public double getPorcentaje() {
-        return porcentaje;
-    }
-
-    public void setPorcentaje(double porcentaje) {
-        this.porcentaje = porcentaje;
-    }
-
     public String getNombre() {
         return nombre;
     }

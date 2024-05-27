@@ -20,8 +20,8 @@ public class Tablero {
         this.table = table;
     }
 
-    public  void  play(Scanner teclado, String IDjugador1, String IDjugador2){
-int jugadorActual=0;
+    public  void  play(Scanner teclado, String IDjugador1, String IDjugador2, int turnoActual){
+int jugadorActual=turnoActual;
         int jaqueMate  ;
         boolean ganador;
         int salir2 = 0;
@@ -373,7 +373,7 @@ public Rey obtenerPiezaReyBlanco(Boolean blanco){
 
 
 
-public void playGuardada(String nombre){
+public void playGuardada(String nombre, Scanner teclado){
 
     PartidaGuardada.cargarPartida(this,nombre);
    HashMap lista= PartidaGuardada.cargarInforJugador(nombre);
