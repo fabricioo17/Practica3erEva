@@ -141,48 +141,48 @@ int jugadorActual=turnoActual;
     public void diferenciarContenidoTablero(){
 
         for (int i = 0; i < table.length; i++) {
-            System.out.print((i + 1) + "  ┃");
+            System.out.print((i + 1) + "  ┃ ");
 
             for (int j = 0; j < 8; j++) {
                 if (table[i][j]==null){
-                    System.out.print("  " + "  " + "  "); // cantidad de rayas por numero es 3
-                    System.out.print(" ┃ ");
+                    System.out.print("  " + " " + "  "); // cantidad de rayas por numero es 3
+                    System.out.print("┃ ");
                 }
                 if(table[i][j] instanceof Peon){
-                    System.out.print( "   ");
+                    System.out.print( "  ");
                     ((Peon) table[i][j]).imprimirPeon();
                     System.out.print("  ");
-                    System.out.print(" ┃");
+                    System.out.print("┃");
 
                 }
                 else if (table[i][j] instanceof Rey){
-                    System.out.print( "   ");
+                    System.out.print( "  ");
                     ((Rey) table[i][j]).imprimirRey();
-                    System.out.print( "   ");
-                    System.out.print("  ┃");
+                    System.out.print( "  ");
+                    System.out.print("┃");
                 }
                 else if (table[i][j] instanceof Reina){
-                    System.out.print( "   ");
+                    System.out.print( "  ");
                     ((Reina) table[i][j]).imprimirReina();
-                    System.out.print( "   ");
+                    System.out.print( "  ");
                     System.out.print("┃");
                 }
                 else if (table[i][j] instanceof Caballo){
-                    System.out.print("   " );
+                    System.out.print("  " );
                     ((Caballo) table[i][j]).imprimirCaballo();
                     System.out.print("   ");
                     System.out.print("┃");
                 }
                 else if (table [i][j]instanceof  Torre){
-                    System.out.print("   ");
+                    System.out.print("  ");
                     ((Torre) table[i][j]).imprimirTorre();
-                    System.out.print("   " );
+                    System.out.print("  " );
                     System.out.print("┃");
                 }
                 else if (table [i][j]instanceof  Alfil){
-                    System.out.print("   ");
+                    System.out.print("  ");
                     ((Alfil) table[i][j]).imprimirAlfil();
-                    System.out.print("   " );
+                    System.out.print("  " );
                     System.out.print("┃");
                 }
             }

@@ -100,6 +100,11 @@ public class PartidaGuardada {
         guardarInformacion(infoTurno,ficheroJugadores);
 }
 
+    /**
+     * guardamos cada pieza del tablero en un txt
+     * @param tablero tablero actual
+     * @param nombre nombre del txt
+     */
     public static void guardarPiezas(Tablero tablero,String nombre){
         fichero= new File("partidasGuardadas/PartidaGuardada"+nombre+".txt");
         Pieza[][] table=tablero.getTable();
@@ -135,6 +140,11 @@ public class PartidaGuardada {
 
     }
 
+    /**
+     * guarda la informacion dentro de un txt
+     * @param contenido es la informacion a guardar
+     * @param fichero el fichero txt
+     */
     public static void guardarInformacion(String contenido, File fichero){;
         try {
              sobreEscrbir = new FileWriter(fichero,true);// true append es para no machacar la informacion obtenida
@@ -146,6 +156,11 @@ public class PartidaGuardada {
     }
 
 
+    /**
+     * recuperamos las piezas guardadas en el txt
+     * @param tablero tablero actual
+     * @param nombre nombre del fichero
+     */
     public static void cargarPiezas(Tablero tablero, String nombre){
 if (confirmarExistenciaFichero(nombre)) {
     fichero= new File("partidasGuardadas/PartidaGuardada"+nombre+".txt");
@@ -189,6 +204,10 @@ if (confirmarExistenciaFichero(nombre)) {
 
     }
 
+    /**
+     * borramos el fichero luego de cargar la partida
+     * @param fichero necesitamos el fichero para borrarlo
+     */
     public static void borrarFichero (File fichero){
 
        try {
@@ -200,7 +219,12 @@ if (confirmarExistenciaFichero(nombre)) {
 
     }
 
-public static boolean confirmarExistenciaFichero(String nombre){
+    /**
+     * verifica la existencia del fichero
+     * @param nombre nombre del fichero
+     * @return devuelve un true si es que existe el fichero y un false si es que no
+     */
+    public static boolean confirmarExistenciaFichero(String nombre){
     Path ruta = Path.of("partidasGuardadas/PartidaGuardada" + nombre + ".txt"); // transformamos el string en una ruta
         try {
         Files.exists(ruta);
@@ -213,8 +237,15 @@ public static boolean confirmarExistenciaFichero(String nombre){
 }
 
 
-
-public static Pieza cargarPieza(String tipo,boolean rojas, int possicionX, int posicionY){
+    /**
+     *  creamos  las piezas con la informacion guardada en el archivo txt
+     * @param tipo  tipo de pieza
+     * @param rojas color
+     * @param possicionX posicion en el eje x
+     * @param posicionY POSICION EN EL eje Y
+     * @return devuelve la pieza creada
+     */
+    public static Pieza cargarPieza(String tipo,boolean rojas, int possicionX, int posicionY){
     if (tipo.compareToIgnoreCase("caballo")==0){
             return  new Caballo(rojas,possicionX,posicionY);
     }
