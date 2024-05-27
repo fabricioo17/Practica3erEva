@@ -34,7 +34,7 @@ public class PartidaGuardada {
 
         HashMap <Integer,String>listaInfo =new HashMap<>();
         if (confirmarExistenciaFichero(nombre)) {
-            ficheroJugadores = new File("src/jugadoresInf" + nombre + ".txt");
+            ficheroJugadores = new File("jugadoresGuardados/jugadoresInf" + nombre + ".txt");
             String ID;
             String linea;
             String roja;
@@ -91,7 +91,7 @@ public class PartidaGuardada {
      * @param nombre nombre dcomo queremos llamar a nuestro archivo
      */
     public static  void guardarInfoJugadores(int turno,  String ID1 , String ID2,String nombre){
-    ficheroJugadores= new File("src/jugadoresInf"+nombre+".txt");
+    ficheroJugadores= new File("jugadoresGuardados/jugadoresInf"+nombre+".txt");
     String infoTurno="turno="+ turno;
     String infoJugador1="jugador1=" + ID1+ ", rojo=true";
     String infoJugador2="jugador2=" + ID2+ ", rojo=false";
@@ -101,7 +101,7 @@ public class PartidaGuardada {
 }
 
     public static void guardarPiezas(Tablero tablero,String nombre){
-        fichero= new File("src/PartidaGuardada"+nombre+".txt");
+        fichero= new File("partidasGuardadas/PartidaGuardada"+nombre+".txt");
         Pieza[][] table=tablero.getTable();
         for (int i=0;i<=7;i++){
             for (int j=0;j<=7;j++) {
@@ -148,7 +148,7 @@ public class PartidaGuardada {
 
     public static void cargarPiezas(Tablero tablero, String nombre){
 if (confirmarExistenciaFichero(nombre)) {
-    fichero= new File("src/PartidaGuardada"+nombre+".txt");
+    fichero= new File("partidasGuardadas/PartidaGuardada"+nombre+".txt");
     Pieza[][] table = tablero.getTable();
     String tipoPieza;
     String linea;
@@ -201,7 +201,7 @@ if (confirmarExistenciaFichero(nombre)) {
     }
 
 public static boolean confirmarExistenciaFichero(String nombre){
-    Path ruta = Path.of("src/PartidaGuardada" + nombre + ".txt"); // transformamos el string en una ruta
+    Path ruta = Path.of("partidasGuardadas/PartidaGuardada" + nombre + ".txt"); // transformamos el string en una ruta
         try {
         Files.exists(ruta);
         return true;

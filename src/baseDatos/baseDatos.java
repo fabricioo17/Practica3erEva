@@ -125,10 +125,10 @@ public class baseDatos {
            // System.out.println(sql);
             PreparedStatement sentencia=conexion.prepareStatement(sql);
             ResultSet resultado = sentencia.executeQuery ();// sireve para obtener los datos de una sentencia de SQL
-while (resultado.next()) {
+        while (resultado.next()) {
     System.out.println("ID: " + resultado.getString("ID") + " , "
             + "NOMBRE:" + resultado.getString("NOMBRE") + " , PARTIDAS JUGADAS: " + resultado.getInt("Partidas_Jugadas") + " , PARTIDAS GANADAS: " + resultado.getInt("partidas_ganadas") + " , Fecha de creacion: " + resultado.getDate("cuenta_creada"));
-}
+            }
             // Cerrar Statement
             sentencia.close();
             //Cerrar conexion
