@@ -131,9 +131,10 @@ while (resultado.next()) {
 
 
         try {
-            String nombre = null;
-            int partidas = 0;
-            int ganadas = 0;
+            String IDguardada;
+            String nombre;
+            int partidas;
+            int ganadas;
             Class.forName("oracle.jdbc.OracleDriver");
             // Establecemos la conexion con la BD
             Connection conexion = DriverManager.getConnection
@@ -142,16 +143,25 @@ while (resultado.next()) {
             System.out.println(sql);
             PreparedStatement sentencia=conexion.prepareStatement(sql);
             ResultSet resultado = sentencia.executeQuery ();
-            while (resultado.next()) {
-                    nombre=resultado.getString("NOMBRE");
-                    ganadas=resultado.getInt("PARTIDAS_GANADAS");
-                    partidas=resultado.getInt("PARTIDAS_JUGADAS");
+            while (resultado.next()){
+                IDguardada= resultado.getString("ID");
+                nombre=resultado.getString("NOMBRE");
+                ganadas=resultado.getInt("PARTIDAS_GANADAS");
+                partidas=resultado.getInt("PARTIDAS_JUGADAS");
+                // Cerrar Statement
+                sentencia.close();
+                //Cerrar conexion
+                conexion.close();
+
+                new Jugador(nombre,IDguardada,ganadas,partidas);
             }
             // Cerrar Statement
             sentencia.close();
-            //Cerrar conexion
+            //Cerrar conexion1
+
             conexion.close();
-            return new Jugador(nombre,ID,ganadas,partidas);
+
+
         }
         catch (Exception e){
                 e.printStackTrace();

@@ -5,6 +5,7 @@ import Tablero.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
 
 public class PartidaGuardada {
 
@@ -24,6 +25,63 @@ cargarPiezas(tablero,"pruebaultimo");
         borrarFichero();
     }
 
+    public static HashMap cargarInforJugador (String nombre) {
+
+        HashMap <String,String>listaInfo =new HashMap<>();
+        if (confirmarExistenciaFichero(nombre)) {
+            fichero = new File("src/JUgadoresInf" + nombre + ".txt");
+            String ID;
+            String linea;
+            String roja;
+            String[] separarLinea;
+            String[] separarDato;
+            try {
+                FileReader lector = new FileReader(fichero);
+                BufferedReader lectura = new BufferedReader(lector);
+                linea = lectura.readLine();
+                while (linea != null) {
+
+                    if (linea.startsWith("turno")){
+                        separarLinea = linea.split("=");
+                        listaInfo.put("turno",separarLinea[1]);//obtenemos el turno en que se guardo la partida
+                    }
+                    else {
+
+                        //-----------primero la fila de datos las eparamos por ","
+                        separarLinea = linea.split(",");
+
+                        //-------------- nos vamos a la parte de color rojo y tambien separamos mediante el "="
+                        separarDato = separarLinea[1].split("=");
+                        //--------------guardamos el true/false del color-----------//
+                       roja=separarDato[1];
+                       //-----------------volvemos a la misma  fila y la separamos
+                        separarLinea = linea.split(",");
+                        //--------------pero esat vez agarramos el primer  dato que sera el ID
+                        separarDato = separarLinea[0].split("=");
+                        //------------separamos el dato mediante su "="
+                            ID=separarDato[1];
+                        listaInfo.put(ID,roja);
+                    }
+                    linea = lectura.readLine();
+                }
+                lector.close();
+                return listaInfo;
+            } catch (Exception e) {
+                System.out.println("no xiste esa partida");
+            }
+
+        }
+        return null;
+    }
+public static  void guardarInfoJugadores(int turno,  String ID1 , String ID2,String nombre){
+    fichero= new File("src/PartidaGuardada"+nombre+".txt");
+    String infoTurno="turno="+ turno;
+    String infoJugador1="jugador1=" + ID1+ ", rojo=true";
+    String infoJugador2="jugador2=" + ID2+ ", rojo=false";
+        guardarInformacion(infoJugador1);
+        guardarInformacion(infoJugador2);
+        guardarInformacion(infoTurno);
+}
 
     public static void guardarPiezas(Tablero tablero,String nombre){
         fichero= new File("src/PartidaGuardada"+nombre+".txt");
@@ -109,6 +167,8 @@ if (confirmarExistenciaFichero(nombre)) {
             //--------------leer siguiente linea
             linea = lectura.readLine();
         }
+
+
         lector.close();
     } catch (Exception e) {
         System.out.println("no xiste esa partida");

@@ -4,6 +4,7 @@ import Piezas.Pieza;
 import Piezas.Tipos.*;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Scanner;
 public class Tablero {
     private Pieza[][] table;
@@ -35,9 +36,11 @@ int jugadorActual=0;
           System.out.println(" ");
           imprimirTablero();
             if (detenerJuego(teclado)){
+                jugadorActual++;
                 System.out.println("ingresa el nombre con la que la quieres guardar");
                 String nombre=teclado.next();
                 PartidaGuardada.guardarPiezas(this,nombre);
+                PartidaGuardada.guardarInfoJugadores(jugadorActual,IDjugador1,IDjugador2,nombre);
                 break;
             }
             jugadorActual++;
@@ -75,17 +78,17 @@ int jugadorActual=0;
     public void  startTablero(){
         table[0][0] = new Torre(true,0,0) ;
        table[0][1]=new Caballo(true,0,1);
-        table[0][2]=new Alfil(false,0,2);
+        table[0][2]=new Alfil(true,0,2);
         table[0][3] = new Rey(true,0,3) ;
-        table[0][4]=new Reina(false,0,4);
-        table[0][5]=new Reina(false,0,5);
+        table[0][4]=new Reina(true,0,4);
+        table[0][5]=new Alfil(true,0,5);
         table[0][6]=new Caballo(true,0,6);
         table[0][7] = new Torre(true,0,7) ;
 
 
         for (int i =1;i<2;i++){
             for (int j=0; j<8;j++){
-                table[i][j]=new Reina(false,i,j);
+                table[i][j]=new Peon(true,i,j);
             }
         }
 
@@ -370,10 +373,10 @@ public Rey obtenerPiezaReyBlanco(Boolean blanco){
 
 
 
-public void playGuardada(Scanner teclado){
-    System.out.println("ingrese el nombre de la partida");
-    String nombre = teclado.next();
+public void playGuardada(String nombre){
+
     PartidaGuardada.cargarPartida(this,nombre);
+   HashMap lista= PartidaGuardada.cargarInforJugador(nombre);
     int siguienteJugador=0;
     int ganador  ;
     boolean color;
