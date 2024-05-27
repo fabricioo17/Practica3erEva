@@ -130,7 +130,7 @@ int jugadorActual=turnoActual;
     public void imprimirTablero(){
         System.out.print(" ");
         for (int i = 0; i < 8; i++) {
-            System.out.print("      " + (i + 1) + "   ");
+            System.out.print("      " + (i + 1) + "  ");
         }
         System.out.println();
         dibujarLineas();
@@ -142,22 +142,24 @@ int jugadorActual=turnoActual;
 
         for (int i = 0; i < table.length; i++) {
             System.out.print((i + 1) + "  ┃");
+
             for (int j = 0; j < 8; j++) {
                 if (table[i][j]==null){
-                    System.out.print("  " + "  " + "   "); // cantidad de rayas por numero es 3
-                    System.out.print(" ┃");
+                    System.out.print("  " + "  " + "  "); // cantidad de rayas por numero es 3
+                    System.out.print(" ┃ ");
                 }
                 if(table[i][j] instanceof Peon){
                     System.out.print( "   ");
                     ((Peon) table[i][j]).imprimirPeon();
-                    System.out.print("   ");
-                    System.out.print("┃");
+                    System.out.print("  ");
+                    System.out.print(" ┃");
+
                 }
                 else if (table[i][j] instanceof Rey){
                     System.out.print( "   ");
                     ((Rey) table[i][j]).imprimirRey();
                     System.out.print( "   ");
-                    System.out.print("┃");
+                    System.out.print("  ┃");
                 }
                 else if (table[i][j] instanceof Reina){
                     System.out.print( "   ");
@@ -352,7 +354,7 @@ public Rey obtenerPiezaReyBlanco(Boolean blanco){
 }
 
     public void dibujarLineas() {
-        int n = ((12) + ((7) * 9));//table.length es 10
+        int n = ((9) + ((7) * 9));//table.length es 10
         System.out.print("    ");
         for (int k = 1; k <= n; k++) {
             System.out.print("─");
