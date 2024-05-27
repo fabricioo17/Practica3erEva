@@ -19,17 +19,18 @@ public class Tablero {
         this.table = table;
     }
 
-    public  void  play(Scanner teclado){
-int siguienteJugador=0;
-        int ganador  ;
-        boolean color;
+    public  void  play(Scanner teclado, String IDjugador1, String IDjugador2){
+int jugadorActual=0;
+        int jaqueMate  ;
+        boolean ganador;
         int salir2 = 0;
       do {
               imprimirTablero();
-              ganador= jugarPlayer(teclado, siguienteJugador);
-                        if (ganador==1 )
-                        { //si es igual a 1 perdiste
+              jaqueMate= jugarPlayer(teclado, jugadorActual);// SIGUIENTE JUGADOR HACE REFERENCIA AL ACTUAL SI ES MULTIPLO DE 0 ES COLOR ROJO
+                        if (jaqueMate==1 )
+                        { //si es igual a 1 es jaquemate a la pieza actual
                             salir2 = 1;
+                            break;
                         }
           System.out.println(" ");
           imprimirTablero();
@@ -39,29 +40,34 @@ int siguienteJugador=0;
                 PartidaGuardada.guardarPiezas(this,nombre);
                 break;
             }
-            siguienteJugador++;
+            jugadorActual++;
 
       }
       while (salir2 != 1);
 
         if (salir2==1) {
-                if (siguienteJugador % 2 == 1) {// si sobra 1 ganara el color blanco porque luego de hallar al ganador se aumenta +1 , osea si gana blancas que es multiplo de 2 antes qde acabar el bucle se aumenta 1
-                    color = true;
+                if (jugadorActual % 2 == 0) {// si sobra 1 ganara el color rojo porque luego de hallar al ganador se aumenta +1 , osea si gana blancas que es multiplo de 2 antes qde acabar el bucle se aumenta 1
+                    ganador = false;
                 } else {
-                    color = false;
+                    ganador = true;
 
                 }
-            mostrarGanador(color);
+            mostrarGanador(ganador,IDjugador1,IDjugador2);
+
         }
 
       }
 
-      public void mostrarGanador(boolean blancas){
-        if (blancas){
-            System.out.println("jugador 2 ganaste");
+      public void mostrarGanador(boolean rojas, String IDjugador1, String IDjugador2){
+        if (rojas){
+            System.out.println("jugador 1 ganaste");
+            baseDatos.baseDatos.actualizarJugador(1,1,IDjugador1);
+            baseDatos.baseDatos.actualizarJugador(1,0,IDjugador2);
         }
         else {
-            System.out.println("jugador 1 ganaste");
+            System.out.println("jugador 2 ganaste");
+            baseDatos.baseDatos.actualizarJugador(1,1,IDjugador2);
+            baseDatos.baseDatos.actualizarJugador(1,0,IDjugador1);
         }
       }
 
@@ -69,17 +75,17 @@ int siguienteJugador=0;
     public void  startTablero(){
         table[0][0] = new Torre(true,0,0) ;
        table[0][1]=new Caballo(true,0,1);
-        table[0][2]=new Alfil(true,0,2);
+        table[0][2]=new Alfil(false,0,2);
         table[0][3] = new Rey(true,0,3) ;
-        table[0][4]=new Reina(true,0,4);
-        table[0][5]=new Alfil(true,0,5);
+        table[0][4]=new Reina(false,0,4);
+        table[0][5]=new Reina(false,0,5);
         table[0][6]=new Caballo(true,0,6);
         table[0][7] = new Torre(true,0,7) ;
 
 
         for (int i =1;i<2;i++){
             for (int j=0; j<8;j++){
-                table[i][j]=new Peon(true,i,j);
+                table[i][j]=new Reina(false,i,j);
             }
         }
 
@@ -222,8 +228,8 @@ int siguienteJugador=0;
                    }
                 }
             }
-            if (contador== piezasRestantes || (contador==0 && piezasRestantes==0)){// falta añadir que la reina vale x dos movimientos
-                return 1;
+            if (contador== piezasRestantes || (contador==0 && piezasRestantes==0)){
+                return 1;//SI DEVUELVE UN 1 SIGNFICA QUE EL JUGADOR ACTUAL ESTA EN JAQUE MATE
             }
         }
             boolean correcto = false;
@@ -350,13 +356,6 @@ public Rey obtenerPiezaReyBlanco(Boolean blanco){
     }
 
 
-public void vaciarTabla(){
-        for (int i=0; i <=7;i++){
-            for (int j=0; j <=7;j++){
-                table[i][j]=null;
-            }
-        }
-}
 
 
 
@@ -397,7 +396,7 @@ public void playGuardada(Scanner teclado){
     }
 
 
-    mostrarGanador(color);
+    mostrarGanador(color,"a","b");
 
 }
 

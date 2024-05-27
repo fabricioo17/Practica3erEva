@@ -155,21 +155,21 @@ public static void guardarJugadoresActualizados(ArrayList<String> listaDatos){
         sobreEscrbir = new FileWriter(fichero,true);// true append es para no machacar la informacion obtenida
         for (String linea : listaDatos) {
             sobreEscrbir.write(linea);
-            sobreEscrbir.close();
         }
-
+        sobreEscrbir.close();
     }
     catch (IOException ie) {
         System.out.println("no se logro sobreescrbir los datos");
     }
 }
     public static void borrarFichero (){
-
+        System.out.println(fichero);
         try {
             Files.delete(fichero.toPath());
         }
         catch (Exception e){
             System.out.println("no se pudo eliminar");
+            e.printStackTrace();
         }
 
     }
@@ -206,7 +206,7 @@ public static void guardarJugadoresActualizados(ArrayList<String> listaDatos){
                     porcentaje= Double.parseDouble(separadorPorcentaje[0]);
                     lector.close();
                     lectura.close();
-                    return new Jugador(nombre,ID,partidasGanadas,partidasJugadas,porcentaje);
+                    return new Jugador(nombre,ID,partidasGanadas,partidasJugadas);
                 }
                 linea=lectura.readLine();
             }

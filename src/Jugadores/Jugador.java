@@ -11,7 +11,7 @@ public class Jugador {
     int partidasJugadas=0;
     int partidasGanadas=0;
     double porcentaje=0;
-    public Jugador(String nombre,String id, int partidasGanadas,int partidasJugadas, double porcentaje) {
+    public Jugador(String nombre,String id, int partidasGanadas,int partidasJugadas) {
         this.nombre =nombre;
         this.id = id;
         this.partidasGanadas=partidasGanadas;
