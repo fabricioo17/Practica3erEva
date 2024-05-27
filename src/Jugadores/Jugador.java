@@ -1,31 +1,29 @@
 package Jugadores;
-
-import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Scanner;
-
 public class Jugador {
     String nombre;
     String id;
     LocalDate fecha;
-    int partidasJugadas=0;
-    int partidasGanadas=0;
-    double porcentaje=0;
+    int partidasJugadas;
+    int partidasGanadas;
+
+
+    /**
+     *
+     * @param nombre recibimos el nombre del jugador
+     * @param id recibimos su identificar
+     * @param partidasGanadas cantidad de partidas ganadas
+     * @param partidasJugadas cantidad de partidas jugadas
+     */
     public Jugador(String nombre,String id, int partidasGanadas,int partidasJugadas) {
         this.nombre =nombre;
         this.id = id;
         this.partidasGanadas=partidasGanadas;
         this.partidasJugadas=partidasJugadas;
-        this.porcentaje= porcentaje;
+
     }
 
-    public Jugador(Scanner teclado) {
-        System.out.println("ingrese su nombre");
-        this.nombre = teclado.next();
-        System.out.println("ingrese un identificador");
-        this.id = teclado.next();
-        this.fecha = LocalDate.now();
-    }
+
     public String getNombre() {
         return nombre;
     }
@@ -66,12 +64,6 @@ public class Jugador {
         this.id = id;
     }
 
-public  int aumentarPartidaJugada(){
-    setPartidasJugadas(partidasJugadas+1);
-
-        return partidasJugadas;
-
-}
 
 
 }

@@ -12,20 +12,24 @@ public class PartidaGuardada {
     static File fichero;
     static File ficheroJugadores;
     static  FileWriter sobreEscrbir;
-    public static void main(String[] args) {
-        Tablero tablero = new Tablero();
-
-cargarPiezas(tablero,"pruebaultimo");
 
 
-
-    }
-
+    /**
+     * cargamos en el tablero los datos del tablero guardado
+     * @param nuevo tablero donde jugaremos la partida guardada
+     * @param nombre nombre del archivo que tiene los datos guardados
+     */
     public static void cargarPartida(Tablero nuevo,String nombre){
         cargarPiezas(nuevo,nombre);
         borrarFichero(fichero);
     }
 
+
+    /**
+     *
+     * @param nombre nombre del fichero donde guardamos los datos
+     * @return devuelve un hashmap donde se guarda el el id de los jugadores con una llave que es o y 1 para saber quien es primero
+     */
     public static HashMap cargarInforJugador (String nombre) {
 
         HashMap <Integer,String>listaInfo =new HashMap<>();
@@ -78,7 +82,15 @@ cargarPiezas(tablero,"pruebaultimo");
         }
         return null;
     }
-public static  void guardarInfoJugadores(int turno,  String ID1 , String ID2,String nombre){
+
+    /**
+     *
+     * @param turno turno donde se quedo la partida guardada
+     * @param ID1 identificador 1
+     * @param ID2 identificador 2
+     * @param nombre nombre dcomo queremos llamar a nuestro archivo
+     */
+    public static  void guardarInfoJugadores(int turno,  String ID1 , String ID2,String nombre){
     ficheroJugadores= new File("src/jugadoresInf"+nombre+".txt");
     String infoTurno="turno="+ turno;
     String infoJugador1="jugador1=" + ID1+ ", rojo=true";
@@ -116,7 +128,6 @@ public static  void guardarInfoJugadores(int turno,  String ID1 , String ID2,Str
                 if (table[i][j] instanceof Peon){
                     String contenido = ((Peon) table[i][j]).mostrarDatosPeon();
                     guardarInformacion(contenido,fichero);
-                    System.out.println("partida guardada");
                 }
             }
 
@@ -134,15 +145,6 @@ public static  void guardarInfoJugadores(int turno,  String ID1 , String ID2,Str
         }
     }
 
-    public  static void  borrarDatos(){
-        try {
-            FileWriter sobreEscrbir = new FileWriter(fichero);// true append es para no machacar la informacion obtenida
-            sobreEscrbir.write("");
-            sobreEscrbir.close();
-        } catch (IOException ie) {
-            System.out.println("no se logro borrar");
-        }
-    }
 
     public static void cargarPiezas(Tablero tablero, String nombre){
 if (confirmarExistenciaFichero(nombre)) {
@@ -197,16 +199,7 @@ if (confirmarExistenciaFichero(nombre)) {
        }
 
     }
-    public static void borrarFicheroJugadores (){
 
-        try {
-            Files.delete(ficheroJugadores.toPath());
-        }
-        catch (Exception e){
-            System.out.println("no se pudo eliminar");
-        }
-
-    }
 public static boolean confirmarExistenciaFichero(String nombre){
     Path ruta = Path.of("src/PartidaGuardada" + nombre + ".txt"); // transformamos el string en una ruta
         try {
@@ -218,10 +211,6 @@ public static boolean confirmarExistenciaFichero(String nombre){
         }
         return false;
 }
-
-
-
-
 
 
 

@@ -4,6 +4,8 @@ import Piezas.Pieza;
 import Piezas.Tipos.Rey;
 import Tablero.Tablero;
 
+
+
 public interface MovimientoDiagonal {
     default int  movimientoDiagonal(Tablero tablero, int movimientoX, int movimientoY, int posicionX, int posicionY){
         int posicionOriginalX= posicionX;
@@ -175,9 +177,20 @@ public interface MovimientoDiagonal {
         }
         return 3;
     }
-    default boolean protegerReyAlfil(Tablero tablero, int posicionX, int posicionY, boolean blanco){
+
+    //---------------------------------------proteger al rey---------------------------------------------//
+
+    /**
+     *
+     * @param tablero neceistamoe el tablero del juego para poder mover la pieza
+     * @param posicionX   requerimos la osicion en el eje x para ubicarnos
+     * @param posicionY  tambien neceistamos la posicion en el eje Y
+     * @param roja  necesitamos el color de la pieza para poder encontrar el rey que debemos proteger
+     * @return devuelve true si logramos proteger al rey con algun movimiento posible
+     */
+    default boolean protegerReyAlfil(Tablero tablero, int posicionX, int posicionY, boolean roja){
         Pieza piezaComida;
-        Rey rey = tablero.obtenerPiezaReyBlanco(blanco);
+        Rey rey = tablero.obtenerPiezaReyBlanco(roja);
         int posicionReyX= rey.getPosicionX();
         int posicionReyY= rey.getPosicionY();
         Pieza [][] table = tablero.getTable();
@@ -188,7 +201,7 @@ public interface MovimientoDiagonal {
 
 
         // ARRIBA IZQUIERDA
-            for (int i = posicionX-1, j = posicionY-1  ; i >=0 && j >=0; i--,j--){
+            for (int i = posicionX-1, j = posicionY-1  ; i >=0 && j >=0; i--,j--){ //vamos a ir recorriedo espacio por espacio hasta lograr proteger el rey si nos chocamos con una pieza ese sera el limite
                     if (table[i][j] == null) {// al tener los limites de arriba y abajo, el movimiento debe estar entre esos dos valores sino seria error
                         actual.cambiarPosicion(tablero,i,j);
 
@@ -304,34 +317,6 @@ public interface MovimientoDiagonal {
             }
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         return false;
     }
 

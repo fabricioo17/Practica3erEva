@@ -13,11 +13,27 @@ public class Reina extends Pieza implements MovimientoDiagonal, MovimientoHorizo
         super(blancas,posicionX,posicionY);
     }
 
+
+    /**
+     * no usaremos este metodo heredado porque usamos que vienen ya definido en las dos interfaces de moviemiento
+     * @param tablero
+     * @param posicionX
+     * @param posicionY
+     * @param blanco
+     * @return
+     */
     @Override
     public boolean protegerRey(Tablero tablero, int posicionX, int posicionY, boolean blanco) {
         return false;
     }
 
+
+    /**
+     * obtendremos los posibles movimientos que hara la reina y mediante los otros metodos veremos si es correcto para verificar los movimientos usaremos las dos interfaces de moviemiento
+     * @param teclado recibir datos por teclado
+     * @param table tablero actual
+     * @return devuelve un 0 si es todo correcto y un 1 si hay algun fallo
+     */
     public int movimientoReina(Scanner teclado, Tablero table) {
         System.out.println("ingrese a que fila quiere mover la reina");
         int x = teclado.nextInt() - 1;
@@ -50,7 +66,9 @@ public class Reina extends Pieza implements MovimientoDiagonal, MovimientoHorizo
     }
 
 
-
+    /**
+     * imprime la forma de la reina
+     */
     public void imprimirReina(){
             if (this.roja){
                 System.out.print(red+ "♕" + reset);

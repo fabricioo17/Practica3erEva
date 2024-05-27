@@ -9,16 +9,14 @@ import java.util.Scanner;
 public class Torre extends Pieza implements MovimientoHorizontalVertical {
     public Torre(Boolean blancas, int posicionX, int posicionY) {super(blancas, posicionX,posicionY);
     }
-    public void imprimirTorre(){
 
-        if (this.roja) {
-            System.out.print(red + "♖" + reset);
-        }
-        else {
-            System.out.print(green + "♖" + reset);
-        }
-    }
-    public int movimientoTorre(Scanner teclado, Tablero table) {
+    /**
+     * sirve para saber que tipo de movimiento haremos luego de verificar si es posible
+     * @param teclado
+     * @param table
+     * @return devuelve un 0 si
+     */
+    public int obteneerMovimientoTorre(Scanner teclado, Tablero table) {
 
         System.out.println("ingrese a que fila quiere mover la torre");
         int x = teclado.nextInt() - 1;
@@ -43,7 +41,14 @@ public class Torre extends Pieza implements MovimientoHorizontalVertical {
             }
     }
 
-
+    /**
+     * no usaremos este metodo ya que el metodo de proteger rey esta en el interfaz
+     * @param tablero
+     * @param posicionX
+     * @param posicionY
+     * @param blanco
+     * @return
+     */
     @Override
     public boolean protegerRey(Tablero tablero, int posicionX, int posicionY, boolean blanco) {
         return false;
@@ -54,4 +59,20 @@ public class Torre extends Pieza implements MovimientoHorizontalVertical {
 
         return toString() + ",Torre";
     }
+
+    /**
+     * imprime la forma de la torre
+     */
+    public void imprimirTorre(){
+
+        if (this.roja) {
+            System.out.print(red + "♖" + reset);
+        }
+        else {
+            System.out.print(green + "♖" + reset);
+        }
+    }
+
+
+
 }

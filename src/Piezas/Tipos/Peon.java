@@ -10,7 +10,48 @@ public class Peon extends Pieza {
                 super(blanca,posicionX,posicionY);
         }
 
+    /**
+     * recibimos los posibles movimientos del peon
+     * @param teclado
+     * @param tablero
+     * @return devuelve un 0 si todo es correcto y un 1 si hubo algun fallo
+     */
+    public int movimientoPeon(Scanner teclado , Tablero tablero) {//posicionX y posicionY son las coordenadas ingresadas por el jugador
+        System.out.println("ingrese a que fila quiere mover el peon");
+        int movimientoX = teclado.nextInt() - 1;
+        System.out.println("ingrese la columna");
+        int movimientoY = teclado.nextInt() - 1;
+        int opcionMovimiento=      verificarMovimientoPeon(tablero,movimientoX,movimientoY,teclado);
+        if (opcionMovimiento==0){
+            System.out.println("pieza movida");
+            return 0;
+        }
+        else if (opcionMovimiento==1) {
+            System.out.println("pieza comida");
+            return 0;
+        }
+        else if (opcionMovimiento==2){
+            System.out.println("no puedes comer tu propia pieza");
+            return 1;
+        }
+        else {
+            System.out.println("movimiento invalido");
+            return 1;
+        }
 
+
+    }
+
+
+
+    /**
+     * verifica si el movimiento que queremos hacer es correcto
+     * @param tablero tablero actual
+     * @param movimientoX  moviento en el eje X
+     * @param movimientoY movimiento en el eje Y
+     * @param teclado  parametro con el cual escribiremos con teclado
+     * @return devuelve un 0 si es moviemiento correcto, 1 si logra comer una pieza y otro nuemro por error de movimiento
+     */
         public  int  verificarMovimientoPeon(Tablero tablero,int movimientoX, int movimientoY, Scanner teclado) {
 
             Pieza[][] table = tablero.getTable();
@@ -177,33 +218,17 @@ public class Peon extends Pieza {
             return 3;
         }
 
-        public int movimientoPeon(Scanner teclado , Tablero tablero) {//posicionX y posicionY son las coordenadas ingresadas por el jugador
-            System.out.println("ingrese a que fila quiere mover el peon");
-            int movimientoX = teclado.nextInt() - 1;
-            System.out.println("ingrese la columna");
-            int movimientoY = teclado.nextInt() - 1;
-            int opcionMovimiento=      verificarMovimientoPeon(tablero,movimientoX,movimientoY,teclado);
-            if (opcionMovimiento==0){
-                System.out.println("pieza movida");
-                return 0;
-            }
-            else if (opcionMovimiento==1) {
-                System.out.println("pieza comida");
-                return 0;
-            }
-            else if (opcionMovimiento==2){
-                System.out.println("no puedes comer tu propia pieza");
-                return 1;
-            }
-            else {
-                System.out.println("movimiento invalido");
-                return 1;
-            }
 
 
-                        }
-
-        public Pieza transformarPeon(Pieza[][] table, Scanner teclado, int movimientoX, int moviminetoY) {
+    /**
+     * una vez nuestro peon llegue al limite del tablero podra convertirse en otra pieza
+     * @param table
+     * @param teclado
+     * @param movimientoX
+     * @param moviminetoY
+     * @return devuelve la pieza en la que queremos convertirlo
+     */
+    public Pieza transformarPeon(Pieza[][] table, Scanner teclado, int movimientoX, int moviminetoY) {
                 System.out.println("elige en que quieres transformar tu peon");
                 System.out.println("1 torre");
                 System.out.println("2 alfil");
@@ -227,6 +252,15 @@ public class Peon extends Pieza {
                 }
         }
 
+
+    /**
+     * verificamos si con algun posible movimiento del peon logra proteger a su rey
+     * @param tablero tablero actual
+     * @param posicionX  posicion en el eje X
+     * @param posicionY posicion en el eje Y
+     * @param blanco color de la pieza si es roja(true) o verde (false)
+     * @return devuelve un true si logra proteger al rey o false si no puede
+     */
     @Override
     public boolean protegerRey(Tablero tablero, int posicionX, int posicionY, boolean blanco) {
         Pieza piezaComida;
@@ -238,6 +272,16 @@ public class Peon extends Pieza {
 
            //---------------hacia abajo----------------------//
         if (blanco==true) {
+            if (posicionX==1 ){
+                if (table[posicionX+2][posicionY] == null){
+                    cambiarPosicion(tablero, posicionX + 2, posicionY );
+                    if (confirmarJaque(tablero, rey.getPosicionX(), rey.getPosicionY()) == false) {
+                        regresarMovimiento(tablero, posicionOriginalX, posicionOriginalY);
+                        return true;
+                    }
+                    regresarMovimiento(tablero, posicionOriginalX, posicionOriginalY);
+                }
+            }
             if ((table[posicionX+1][posicionY] == null)) {
                 cambiarPosicion(tablero, posicionX + 1, posicionY );
                 if (confirmarJaque(tablero, rey.getPosicionX(), rey.getPosicionY()) == false) {
@@ -278,7 +322,18 @@ public class Peon extends Pieza {
 
         }
         else {
-//--------------------------hacia arriba
+//--------------------------hacia arriba---------------------------------------------------------//
+
+            if (posicionX==6 ){
+                if (table[posicionX-2][posicionY] == null){
+                    cambiarPosicion(tablero, posicionX -2, posicionY );
+                    if (confirmarJaque(tablero, rey.getPosicionX(), rey.getPosicionY()) == false) {
+                        regresarMovimiento(tablero, posicionOriginalX, posicionOriginalY);
+                        return true;
+                    }
+                    regresarMovimiento(tablero, posicionOriginalX, posicionOriginalY);
+                }
+            }
             if ((table[posicionX-1][posicionY] == null)) {
                 cambiarPosicion(tablero, posicionX - 1, posicionY );
                 if (confirmarJaque(tablero, rey.getPosicionX(), rey.getPosicionY()) == false) {
@@ -324,6 +379,10 @@ public class Peon extends Pieza {
 
             return false;
     }
+
+    /**
+     * imprime el simbolo del peon
+     */
 
     public void imprimirPeon(){
                 if (this.roja) {

@@ -39,6 +39,7 @@ public class Main {
                         case 2:
 
                             do {
+                                System.out.println(" ");
                                 System.out.println("iniciamos con el jugador " + turno);
 
                                 System.out.println("1 ya tienes cuenta");
@@ -143,26 +144,18 @@ public class Main {
                 teclado = new Scanner(System.in);
             }
         }
-
-
-
-
-
-
-
 //----------------------------empezar el juego-------------------------------------------------//
        boolean valorCorrecto2=false;
         boolean salirJuego=false;
         while (valorCorrecto2==false) {
            try {
-
               do {
-
-
                   if (desbloqueado == true) {
                       Tablero tablero = new Tablero();
-                      System.out.println(" 1 nueva partida ");
+                      System.out.println(" ");
+                      System.out.println("1 nueva partida ");
                       System.out.println("2 partida guardada");
+                      System.out.println("3 salir ");
                       int opcion = teclado.nextInt();
                       switch (opcion) {
                           case 1:
@@ -180,42 +173,31 @@ public class Main {
                              String IDjugador1= lista.get(0);
                               String IDjugador2= lista.get(1);
                               int turnoPartida= Integer.parseInt(lista.get(2));
-
                               tablero.play(teclado,IDjugador1,IDjugador2,turnoPartida);
                               break;
 
                           case 3:
                               System.out.println("adios");
+                              salirJuego=true;
+                              valorCorrecto2=true;
                               break;
 
                           default:
                               System.out.println("elige un valor correcto");
-
-
                       }
+                  }
+                  else {
+                      salirJuego=true;
+                      valorCorrecto2=true;
                   }
               }
               while (salirJuego==false);
-
-
-
-
-
            } catch (InputMismatchException ime) {
                System.out.println("ingresar un valor adecuado");
                teclado = new Scanner(System.in);
            }
 
        }
-
-
-
-
-
-
-
-
-
 
     }
 }

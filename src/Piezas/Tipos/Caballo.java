@@ -7,18 +7,29 @@ import java.util.Scanner;
 
 public class Caballo extends Pieza {
 
-
-    public Caballo(Boolean blancas, int posicionX, int posicionY) {
-        super(blancas,posicionX,posicionY);
+    /**
+     *
+     * @param roja color de la pieza
+     * @param posicionX posicion en el eje X
+     * @param posicionY posicion en el eje Y
+     */
+    public Caballo(Boolean roja, int posicionX, int posicionY) {
+        super(roja,posicionX,posicionY);
     }
 
 
-    public  int movimientoCaballo (Scanner teclado,Tablero tablero){
+    /**
+     *
+     * @param teclado parametro para ingresar los datos mediante teclado
+     * @param tablero tablero donde jugamos
+     * @return devuelve 0 si el movimeinto es correcto y 1 si no lo es
+     */
+    public  int obtenerMovientoCaballo(Scanner teclado, Tablero tablero){
         System.out.println("ingrese a que fila quiere mover el caballo");
         int x = teclado.nextInt()-1;
         System.out.println("ingrese la columna");
         int y = teclado.nextInt()-1;
-        int opcionMovimiento= movimientoTotalCaballo(tablero,x,y);
+        int opcionMovimiento= moverCaballo(tablero,x,y);
         if (opcionMovimiento==0){
             System.out.println("pieza movida");
             return 0;
@@ -33,7 +44,15 @@ public class Caballo extends Pieza {
     }
 
 
-    public int movimientoTotalCaballo( Tablero tablero, int movimientoX, int movimientoY) {
+    /**
+     *
+     * @param tablero
+     * @param movimientoX
+     * @param movimientoY
+     * @return devuelve 0 si el movieminto es correcto , devuelve 1 si logro comer una pieza y otro nuemro si es incorrecto el moviemiento
+     */
+    public int moverCaballo(Tablero tablero, int movimientoX, int movimientoY) {
+        // aqui no hay una forma de poder simplificar el movieminto del caballo por ello debes tomar cada caso y analizarlo
         Pieza[][] table = tablero.getTable();
         int posicionOriginalX= posicionX;
         int posicionOriginalY=posicionY;
@@ -225,11 +244,21 @@ public class Caballo extends Pieza {
             }
             return 2;
         }
+//-------------------proteger rey---------------------------------------------//
 
+
+    /**
+     *
+     * @param tablero  tablero donde estamos jugando
+     * @param posicionX  posicon en el eje X
+     * @param posicionY posicion en el eje Y
+     * @param roja color de la pieza es roja (true) o verde (false
+     * @return devuelve un true si logramos proteger al rey con algun posible movimiento y false si no podemos
+     */
     @Override
-    public boolean protegerRey(Tablero tablero, int posicionX, int posicionY, boolean blanco) {
+    public boolean protegerRey(Tablero tablero, int posicionX, int posicionY, boolean roja) {
         Pieza piezaComida;
-        Rey rey = tablero.obtenerPiezaReyBlanco(blanco);
+        Rey rey = tablero.obtenerPiezaReyBlanco(roja);
         Pieza[][] table = tablero.getTable();
         // obtenemos el rey para que en cada movieminto veamos si podemos proteger al rey
         int posicionOriginalX = posicionX;
@@ -244,7 +273,7 @@ if (posicionX - 2 >=0 && posicionY+1<=7) {
         }
         regresarMovimiento(tablero, posicionOriginalX, posicionOriginalY);
     } else {
-        if (table[posicionX - 2][posicionY + 1].isRoja() != roja) {
+        if (table[posicionX - 2][posicionY + 1].isRoja() != this.roja) {
             piezaComida = tablero.obtenerPieza(posicionX - 2, posicionY + 1);
             cambiarPosicionPieza(tablero, posicionX - 2, posicionY + 1);
             if (confirmarJaque(tablero, rey.getPosicionX(), rey.getPosicionY())==false) {
@@ -267,7 +296,7 @@ if (posicionX - 2 >=0 && posicionY+1<=7) {
                             }
                             regresarMovimiento(tablero, posicionOriginalX, posicionOriginalY);
                         } else {
-                            if (table[posicionX - 2][posicionY - 1].isRoja() != roja) {
+                            if (table[posicionX - 2][posicionY - 1].isRoja() != this.roja) {
                                 piezaComida = tablero.obtenerPieza(posicionX - 2, posicionY - 1);
                                 cambiarPosicionPieza(tablero, posicionX - 2, posicionY - 1);
                                 if (confirmarJaque(tablero, rey.getPosicionX(), rey.getPosicionY())==false) {
@@ -290,7 +319,7 @@ if (posicionX - 2 >=0 && posicionY+1<=7) {
                 }
                 regresarMovimiento(tablero, posicionOriginalX, posicionOriginalY);
             } else {
-                if (table[posicionX - 1][posicionY + 2].isRoja() != roja) {
+                if (table[posicionX - 1][posicionY + 2].isRoja() != this.roja) {
                     piezaComida = tablero.obtenerPieza(posicionX - 1, posicionY + 2);
                     cambiarPosicionPieza(tablero, posicionX - 1, posicionY + 2);
                     if (confirmarJaque(tablero, rey.getPosicionX(), rey.getPosicionY())==false) {
@@ -314,7 +343,7 @@ if (posicionX - 2 >=0 && posicionY+1<=7) {
                 regresarMovimiento(tablero, posicionOriginalX, posicionOriginalY);
 
             } else {
-                if (table[posicionX - 1][posicionY - 2].isRoja() != roja) {
+                if (table[posicionX - 1][posicionY - 2].isRoja() != this.roja) {
                     piezaComida = tablero.obtenerPieza(posicionX - 1, posicionY - 2);
                     cambiarPosicionPieza(tablero, posicionX - 1, posicionY - 2);
                     if (confirmarJaque(tablero, rey.getPosicionX(), rey.getPosicionY())==false) {
@@ -338,7 +367,7 @@ if (posicionX - 2 >=0 && posicionY+1<=7) {
                 }
                 regresarMovimiento(tablero, posicionOriginalX, posicionOriginalY);
             } else {
-                if (table[posicionX + 2][posicionY + 1].isRoja() != roja) {
+                if (table[posicionX + 2][posicionY + 1].isRoja() != this.roja) {
                     piezaComida = tablero.obtenerPieza(posicionX + 2, posicionY + 1);
                     cambiarPosicionPieza(tablero, posicionX + 2, posicionY + 1);
                     if (confirmarJaque(tablero, rey.getPosicionX(), rey.getPosicionY())==false) {
@@ -360,7 +389,7 @@ if (posicionX - 2 >=0 && posicionY+1<=7) {
                 }
                 regresarMovimiento(tablero, posicionOriginalX, posicionOriginalY);
             } else {
-                if (table[posicionX + 2][posicionY - 1].isRoja() != roja) {
+                if (table[posicionX + 2][posicionY - 1].isRoja() != this.roja) {
                     piezaComida = tablero.obtenerPieza(posicionX + 2, posicionY - 1);
                     cambiarPosicionPieza(tablero, posicionX + 2, posicionY - 1);
                     if (confirmarJaque(tablero, rey.getPosicionX(), rey.getPosicionY())==false) {
@@ -383,7 +412,7 @@ if (posicionX - 2 >=0 && posicionY+1<=7) {
                 }
                 regresarMovimiento(tablero, posicionOriginalX, posicionOriginalY);
             } else {
-                if (table[posicionX + 1][posicionY + 2].isRoja() != roja) {
+                if (table[posicionX + 1][posicionY + 2].isRoja() != this.roja) {
                     piezaComida = tablero.obtenerPieza(posicionX + 1, posicionY + 2);
                     cambiarPosicionPieza(tablero, posicionX + 1, posicionY + 2);
                     if (confirmarJaque(tablero, rey.getPosicionX(), rey.getPosicionY())==false) {
@@ -406,7 +435,7 @@ if (posicionX - 2 >=0 && posicionY+1<=7) {
                 }
                 regresarMovimiento(tablero, posicionOriginalX, posicionOriginalY);
             } else {
-                if (table[posicionX + 1][posicionY - 2].isRoja() != roja) {
+                if (table[posicionX + 1][posicionY - 2].isRoja() != this.roja) {
                     piezaComida = tablero.obtenerPieza(posicionX + 1, posicionY - 2);
                     cambiarPosicionPieza(tablero, posicionX + 1, posicionY - 2);
                     if (confirmarJaque(tablero, rey.getPosicionX(), rey.getPosicionY())==false) {

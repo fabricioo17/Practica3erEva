@@ -4,17 +4,23 @@ import Tablero.Tablero;
 import java.util.Scanner;
 public class Rey extends Pieza{
 
-    public Rey(Boolean blancas, int posicionX, int y) {
-        super(blancas, posicionX, y);
+    public Rey(Boolean roja, int posicionX, int y) {
+        super(roja, posicionX, y);
     }
 
 
+    /**
+     * obtendremos los posibles movimientos y los verificaremos con los otros metodos
+     * @param teclado
+     * @param tablero
+     * @return devuelve un 0 si todo es correcto y un 1 si hay algun error
+     */
     public int elegirMovimiento(Scanner teclado, Tablero tablero) {
         System.out.println("ingrese a que fila quiere mover el rey ");
         int x = teclado.nextInt()-1;
         System.out.println("ingresa la columna");
         int y = teclado.nextInt()-1;
-            int opcion=    movimientoRey(tablero,x,y);
+            int opcion=    verificarMovientoRey(tablero,x,y);
 
             if ( opcion==0){
                 System.out.println("pieza movida");
@@ -33,12 +39,20 @@ public class Rey extends Pieza{
                 return 1;
             }
 
-        //verificarMovimiento(tablero, x, y);
+
 
 
     }
 
-   public int movimientoRey(Tablero tablero, int movimientoX, int movimientoY) {// si devuelve  no se puede mover ahi
+
+    /**
+     * verifica si el posible movimineto del rey es correcto
+     * @param tablero tablero actual
+     * @param movimientoX   moviemitno eje x
+     * @param movimientoY moviemiento eje Y
+     * @return devuelve un 0 si el movimiento es correcto un 1 si come la pieza y si es otro numero es error
+     */
+   public int verificarMovientoRey(Tablero tablero, int movimientoX, int movimientoY) {// si devuelve  no se puede mover ahi
        int posicionOriginalX = posicionX;
        int posicionOriginalY = posicionY;
        Pieza piezaComida;
@@ -257,11 +271,27 @@ public class Rey extends Pieza{
        return  3;
    }
 
+
+    /**
+     * no usaremos este metedo ya que un rey no puede protegerse a si mismo
+     * @param tablero
+     * @param posicionX
+     * @param posicionY
+     * @param blanco
+     * @return
+     */
     @Override
     public boolean protegerRey(Tablero tablero, int posicionX, int posicionY, boolean blanco) {// no lo usaremos pues el rey no puede proteger al rey
         return false;
     }
 
+
+    /**
+     * este metedo nos indicara si el rey ya nop uede moverse por el tablero
+     * @param tablero
+     * @param blanco
+     * @return devuelve un true  si no puede moverse y  false si aun tiene algun movimiento
+     */
     public  boolean reySinMovimiento(Tablero tablero, Boolean blanco) {
       int contador = 0;
       int posicionOriginalX= posicionX;
@@ -282,8 +312,6 @@ int movimientoY;
                   contador++;
               }
               regresarMovimiento(tablero, posicionOriginalX, posicionOriginalY);
-//hacer un if y un else if donde if sera que si el espacio donde se podria mover es nulo y veremos si añade 1 al contador
-              // el else if es para si puede comer una pieza y se comprobara si añade mas uno al contador
           }
           else {
               if (table[posicionX - 1][posicionY].isRoja() != this.roja && !(table[posicionX - 1][posicionY] instanceof Rey)) {
@@ -700,7 +728,6 @@ public int  comerRey(Tablero tablero, int movimientoX,int movimientoY) {
 
         //----------------------------------------------------------------------------------------------//
 
-
         //-----------------------------diagonal arriba izquierda---------------------------------------------------//
         else if (posicionX -1== movimientoX && posicionY+1==movimientoY) {
             if (table[movimientoX][movimientoY].isRoja() != this.roja) {
@@ -723,8 +750,6 @@ public int  comerRey(Tablero tablero, int movimientoX,int movimientoY) {
         }
         //----------------------------------------------------------------------------------------------//
 
-
-
         //--------------------------diagonal abajo derecha--------------------------------------------------------//
         else if (posicionX -1== movimientoX && posicionY+1==movimientoY) {
             if (table[movimientoX][movimientoY].isRoja() != this.roja) {
@@ -743,9 +768,6 @@ public int  comerRey(Tablero tablero, int movimientoX,int movimientoY) {
             }
         }
         //----------------------------------------------------------------------------------------------//
-
-
-
 
         //----------------------------diagonal abajo izquierda------------------------------------------------//
         else if (posicionX -1== movimientoX && posicionY+1==movimientoY) {

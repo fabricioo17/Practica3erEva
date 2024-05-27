@@ -5,6 +5,7 @@ import Piezas.Tipos.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 public class Tablero {
     private Pieza[][] table;
@@ -20,6 +21,14 @@ public class Tablero {
         this.table = table;
     }
 
+
+    /**
+     * juntamos todos los metodos dentro de esta clase para formar el juego completo
+     * @param teclado  recibe los datos introducidos por teclado
+     * @param IDjugador1 el ID del jugagor numero 1
+     * @param IDjugador2 el ID del ugador numero 2
+     * @param turnoActual este valor es para indicar el turno de cada persona
+     */
     public  void  play(Scanner teclado, String IDjugador1, String IDjugador2, int turnoActual){
 int jugadorActual=turnoActual;
         int jaqueMate  ;
@@ -75,6 +84,9 @@ int jugadorActual=turnoActual;
       }
 
 
+    /**
+     *
+     */
     public void  startTablero(){
         table[0][0] = new Torre(true,0,0) ;
        table[0][1]=new Caballo(true,0,1);
@@ -178,10 +190,12 @@ int jugadorActual=turnoActual;
     }
 
 
-
-
-
-
+    /**
+     *
+     * @param teclado teclado donde recibiremos los datos introducidos por el jugador
+     * @param numJugador  valor para saber el turno del jugador
+     * @return si devuelve un 1 es porque el jugador actual tiene ajque mate
+     */
     public int jugarPlayer(Scanner teclado, int numJugador) {
         boolean roja;
         if (numJugador%2 ==0){
@@ -235,74 +249,84 @@ int jugadorActual=turnoActual;
                 return 1;//SI DEVUELVE UN 1 SIGNFICA QUE EL JUGADOR ACTUAL ESTA EN JAQUE MATE
             }
         }
+
+        Boolean valorValido=false;
             boolean correcto = false;
-            do {
-                System.out.print(" jugador  " );
-                if (roja== true){
-                    System.out.println("1");
-                }
-                else {
-                    System.out.println("2");
-                }
-                System.out.println("ingrese las coordenadas de la pieza");
-        int posicionX = teclado.nextInt() - 1;
-                int posicionY = teclado.nextInt() - 1;
-                if (table[posicionX][posicionY] == null) {
-                    System.out.print(" no hay pieza elegida  "); // cantidad de rayas por numero es 3
-                    System.out.println("vuelva a ingresar las coordenadas");
+            while (valorValido==false) {
+                try {
 
-                }
-                else {
 
-                    if (table[posicionX][posicionY].isRoja()!=roja) {
-                        System.out.println(" esa pieza no es tuya");
-                    } else {
+                    do {
+                        System.out.print(" jugador  ");
+                        if (roja == true) {
+                            System.out.println("rojo");
+                        } else {
+                            System.out.println("verde");
+                        }
+                        System.out.println("ingrese las coordenadas horizontal");
+                        int posicionX = teclado.nextInt() - 1;
+                        System.out.println("ingrese la coordenad vertical");
+                        int posicionY = teclado.nextInt() - 1;
+                        if (table[posicionX][posicionY] == null) {
+                            System.out.print(" no hay pieza elegida  "); // cantidad de rayas por numero es 3
+                            System.out.println("vuelva a ingresar las coordenadas");
 
-                        if (table[posicionX][posicionY] instanceof Peon) {
-                            table[posicionX][posicionY].setPosicionX(posicionX);
-                            table[posicionX][posicionY].setPosicionY(posicionY);
-                           num= ((Peon) table[posicionX][posicionY]).movimientoPeon(teclado, this);
-                            if (num == 0) {
-                                correcto = true;
-                            }
-                        } else if (table[posicionX][posicionY] instanceof Rey) {
-                            num = ((Rey) table[posicionX][posicionY]).elegirMovimiento(teclado,this);
-                            if (num == 0) {
-                                correcto = true;
-                            }
+                        } else {
 
-                        } else if (table[posicionX][posicionY] instanceof Reina) {
-                            table[posicionX][posicionY].setPosicionX(posicionX);
-                            table[posicionX][posicionY].setPosicionY(posicionY);
-                            num = ((Reina) table[posicionX][posicionY]).movimientoReina(teclado, this);
-                            if (num == 0) {
-                                correcto = true;
-                            }
-                        } else if (table[posicionX][posicionY] instanceof Caballo) {
-                            num =  ((Caballo) table[posicionX][posicionY]).movimientoCaballo(teclado,this);
-                            if (num == 0) {
-                                correcto = true;
-                            }
-                        } else if (table[posicionX][posicionY] instanceof Torre) {
+                            if (table[posicionX][posicionY].isRoja() != roja) {
+                                System.out.println(" esa pieza no es tuya");
+                            } else {
 
-                             num = ((Torre) table[posicionX][posicionY]).movimientoTorre(teclado, this);
+                                if (table[posicionX][posicionY] instanceof Peon) {
+                                    table[posicionX][posicionY].setPosicionX(posicionX);
+                                    table[posicionX][posicionY].setPosicionY(posicionY);
+                                    num = ((Peon) table[posicionX][posicionY]).movimientoPeon(teclado, this);
+                                    if (num == 0) {
+                                        correcto = true;valorValido=true;
+                                    }
+                                } else if (table[posicionX][posicionY] instanceof Rey) {
+                                    num = ((Rey) table[posicionX][posicionY]).elegirMovimiento(teclado, this);
+                                    if (num == 0) {
+                                        correcto = true;valorValido=true;
+                                    }
 
-                            if (num == 0) {
-                                correcto = true;
-                            }
-                        } else if (table[posicionX][posicionY] instanceof Alfil) {
-                            table[posicionX][posicionY].setPosicionX(posicionX);
-                            table[posicionX][posicionY].setPosicionY(posicionY);
-                            num =   ((Alfil) table[posicionX][posicionY]).movimientoAlfil(teclado, this);
-                            if (num == 0) {
-                                correcto = true;
+                                } else if (table[posicionX][posicionY] instanceof Reina) {
+                                    table[posicionX][posicionY].setPosicionX(posicionX);
+                                    table[posicionX][posicionY].setPosicionY(posicionY);
+                                    num = ((Reina) table[posicionX][posicionY]).movimientoReina(teclado, this);
+                                    if (num == 0) {
+                                        correcto = true;valorValido=true;
+                                    }
+                                } else if (table[posicionX][posicionY] instanceof Caballo) {
+                                    num = ((Caballo) table[posicionX][posicionY]).obtenerMovientoCaballo(teclado, this);
+                                    if (num == 0) {
+                                        correcto = true;valorValido=true;
+                                    }
+                                } else if (table[posicionX][posicionY] instanceof Torre) {
+
+                                    num = ((Torre) table[posicionX][posicionY]).obteneerMovimientoTorre(teclado, this);
+
+                                    if (num == 0) {
+                                        correcto = true;valorValido=true;
+                                    }
+                                } else if (table[posicionX][posicionY] instanceof Alfil) {
+                                    table[posicionX][posicionY].setPosicionX(posicionX);
+                                    table[posicionX][posicionY].setPosicionY(posicionY);
+                                    num = ((Alfil) table[posicionX][posicionY]).movimientoAlfil(teclado, this);
+                                    if (num == 0) {
+                                        correcto = true;
+                                        valorValido=true;
+                                    }
+                                }
                             }
                         }
                     }
+                    while (correcto == false);
+                } catch (ArrayIndexOutOfBoundsException |InputMismatchException e) {
+                    System.out.println("ingresa un valor valido");
+                    teclado=new Scanner(System.in);
                 }
             }
-            while (correcto == false);
-
             return 0;
     }
 
@@ -336,73 +360,38 @@ public Rey obtenerPiezaReyBlanco(Boolean blanco){
         System.out.println();
     }
 
-    public int contarPiezasRestantes(boolean blanco){
-       int blancas=0;
-       int negras =0;
+
+    //----------------------contar piezas-------------------------------//
+
+    /**
+     * contara las piezas restantes de un color
+     * @param roja color que queramos de pieza
+     * @return devuelve la cantidad de piezas encontradas
+     */
+    public int contarPiezasRestantes(boolean roja){
+       int rojas=0;
+       int verdes =0;
         for (int i =0;i<=7;i++){
             for (int j=0 ; j<=7;j++) {
                 if (table[i][j] != null) {
                     if (table[i][j].isRoja()) {
-                        blancas++;
+                        rojas++;
                     } else {
-                        negras++;
+                        verdes++;
                     }
                 }
             }
         }
-        if (blanco == true){
-            return blancas;
+        if (roja == true){
+            return rojas;
         }
         else {
-            return negras;
+            return verdes;
         }
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-public void playGuardada(String nombre, Scanner teclado){
-
-    PartidaGuardada.cargarPartida(this,nombre);
-   HashMap lista= PartidaGuardada.cargarInforJugador(nombre);
-    int siguienteJugador=0;
-    int ganador  ;
-    boolean color;
-    int salir2 = 0;
-    do {
-        imprimirTablero();
-        ganador= jugarPlayer(teclado, siguienteJugador);
-        if (ganador==1 ){ //si es igual a 1 perdiste
-            salir2=1;
-        }
-        siguienteJugador++;
-
-    }
-    while (salir2 != 1);
-    if (siguienteJugador%2==1){// si sobra 1 ganara el color blanco porque luego de hallar al ganador se aumenta +1 , osea si gana blancas que es multiplo de 2 antes qde acabar el bucle se aumenta 1
-        color=true;
-    }
-    else {
-        color=false;
-    }
-
-
-    mostrarGanador(color,"a","b");
-
-}
-
+    //--------------------------------detener juego---------------------------------------//
 public boolean detenerJuego(Scanner teclado){
     System.out.println("quieren detener el juego y luego continuar?");
     String respuesta =teclado.next();

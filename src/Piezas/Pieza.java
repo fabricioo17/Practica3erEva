@@ -47,6 +47,13 @@ public abstract  class Pieza {
     }
 
 
+    /**
+     * este metodo nos indica si nuestro rey esta en ajque y sera ultil para saber que una piesa no puede moverse a cualquier lado si no es para proteger a su rey
+     * @param tablero
+     * @param posicionReyX
+     * @param posicionReyY
+     * @return devuelve un true si hay jaque y un false si es que no hay
+     */
     public boolean confirmarJaque(Tablero tablero, int posicionReyX, int posicionReyY) {
         Pieza[][] table = tablero.getTable();
         //hacia arriba
@@ -57,7 +64,6 @@ public abstract  class Pieza {
                 } else {
                     break;
                 }
-                //un else if mas cuando es pieza enemiga pero que no puede comernos
             }
 
             if (table[i][posicionReyY] instanceof Pieza) {
@@ -312,13 +318,20 @@ public abstract  class Pieza {
 
 //---------------------------------------------------------------------------------------------------------------------//
 
-
         return false;
 
 
     }
 
 
+    /**
+     * este metodo sirve para regresar la pieza que comimos luego de darnos cuenta que no era lo correcto
+     * @param tablero
+     * @param posicionOriginalX
+     * @param posicionOriginalY
+     * @param piezaComida
+     * @return  si lo regresa devuelve un true
+     */
     public boolean regresarPiezaComida(Tablero tablero, int posicionOriginalX, int posicionOriginalY, Pieza piezaComida) {
         Pieza[][] table = tablero.getTable();
         table[posicionOriginalX][posicionOriginalY] = table[posicionX][posicionY];
@@ -331,6 +344,13 @@ public abstract  class Pieza {
 
     }
 
+    /**
+     * sirve para resar los movimientos luego de comer una pieza
+     * @param tablero
+     * @param posicionOriginalX
+     * @param posicionOriginalY
+     * @return devuelve un true si regresamos los movimientos
+     */
     public boolean regresarMovimiento(Tablero tablero, int posicionOriginalX, int posicionOriginalY) {
         Pieza[][] table = tablero.getTable();
         table[posicionOriginalX][posicionOriginalY] = table[posicionX][posicionY];// al confirmar que se puede mover table esa posicion,
@@ -352,6 +372,12 @@ public abstract  class Pieza {
 
         }
 
+    /**
+     * sirve para cambiar la posicion con una pieza
+     * @param tablero
+     * @param movimientoX movimiento en el eje X
+     * @param movimientoY movieminto en el eje Y
+     */
         public  void cambiarPosicionPieza(Tablero tablero, int movimientoX, int movimientoY){
             Pieza[][] table = tablero.getTable();
             table[movimientoX][movimientoY] = table[posicionX][posicionY];
@@ -360,7 +386,16 @@ public abstract  class Pieza {
             table[movimientoX][movimientoY].setPosicionY(movimientoY);
         }
 
-public  abstract  boolean protegerRey(Tablero tablero, int posicionX, int posicionY, boolean blanco);
+
+    /**
+     * este metodo sera aplicado de manera diferente por las diferentes piezas ya que cada uno defiendo a su rey de forma distitna
+     * @param tablero
+     * @param posicionX
+     * @param posicionY
+     * @param blanco
+     * @return devuelve un true si logra proteger y un false si no lo logra
+     */
+    public  abstract  boolean protegerRey(Tablero tablero, int posicionX, int posicionY, boolean blanco);
 
     @Override
     public String toString() {

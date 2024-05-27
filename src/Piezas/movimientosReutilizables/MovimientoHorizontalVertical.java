@@ -5,9 +5,6 @@ import Piezas.Tipos.Rey;
 import Tablero.Tablero;
 
 
-/**
- * si nos devuelve false, es porque el jaque ha sido neutralizado
- */
 public interface MovimientoHorizontalVertical {
     default int movimientoVertical(Tablero tablero, int movimientoX, int movimientoY, int posicionX, int posicionY) {
        int posicionOriginalX= posicionX;
@@ -137,15 +134,15 @@ Pieza piezaComida;
 
     /**
      *
-     * @param tablero
+     * @param tablero requerimos el tablero para poder movilizarnos
      * @param posicionX
      * @param posicionY
-     * @param blanco
+     * @param roja necesitamos el color de la pieza para poder encontrar el rey que debemos proteger
      * @return devuelve un true si es que logramos proteger el rey, para elloprimero veremos si logra proteger hacia arriba si no lo logra empieza hacia abajo y luego derecha izquierda hasta encontrar el true, si no lo encunetra devuelve un flase
      */
-    default boolean protegerReyTorre(Tablero tablero, int posicionX, int posicionY, boolean blanco){
+    default boolean protegerReyTorre(Tablero tablero, int posicionX, int posicionY, boolean roja){
  Pieza comida;
- Rey rey = tablero.obtenerPiezaReyBlanco(blanco);
+ Rey rey = tablero.obtenerPiezaReyBlanco(roja);
  int posicionReyX= rey.getPosicionX();
  int posicionReyY= rey.getPosicionY();
    Pieza [][] table = tablero.getTable();
