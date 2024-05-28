@@ -393,6 +393,10 @@ public class Peon extends Pieza {
                 }
         }
 
+    /**
+     * muestra los datos del peon
+     * @return retorna los datos
+     */
     public String mostrarDatosPeon(){
 
 

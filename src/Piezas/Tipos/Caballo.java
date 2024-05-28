@@ -19,7 +19,7 @@ public class Caballo extends Pieza {
 
 
     /**
-     *
+     * nos muestra si el movimiento del caballo es correcto o no
      * @param teclado parametro para ingresar los datos mediante teclado
      * @param tablero tablero donde jugamos
      * @return devuelve 0 si el movimeinto es correcto y 1 si no lo es
@@ -45,7 +45,7 @@ public class Caballo extends Pieza {
 
 
     /**
-     *
+     *vemos si los valores de moviemiento concuerda con las restricciones del caballo
      * @param tablero
      * @param movimientoX
      * @param movimientoY
@@ -248,7 +248,7 @@ public class Caballo extends Pieza {
 
 
     /**
-     *
+     *hacemos posibles movimeintos para lograr proteger al rey
      * @param tablero  tablero donde estamos jugando
      * @param posicionX  posicon en el eje X
      * @param posicionY posicion en el eje Y
@@ -451,6 +451,10 @@ if (posicionX - 2 >=0 && posicionY+1<=7) {
 
     }
 
+    /**
+     * imprime la forma del caballo
+     * @return retorna la forma del caballo
+     */
     public String imprimirCaballo() {
         if (this.roja) {
             System.out.print(red + "♘" + reset);
@@ -462,7 +466,10 @@ if (posicionX - 2 >=0 && posicionY+1<=7) {
     }
 
 
-
+    /**
+     * imprime los datos del caballo
+     * @return retorna los datos
+     */
     public String mostrarDatos(){
 
 

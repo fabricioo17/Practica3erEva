@@ -35,7 +35,7 @@ public class Alfil extends Pieza  implements MovimientoDiagonal {
 
 
     /**
-     *
+     * veremos si elmovimiento del alfil fue correcto o no
      * @param teclado  registra lo ingresa por teclado
      * @param table  el tablero que estamos usando para jugar
      * @return   devuelve 0 si el movimiento es correcto y 1 si es inoorrecto
@@ -78,6 +78,10 @@ int opcion=  movimientoDiagonal(table,x,y,posicionX,posicionY);
         }
     }
 
+    /**
+     * muestra los datos del alfil
+     * @return retorna los datos del alfil
+     */
     public String mostrarDatosAlfil(){
 
 

@@ -30,6 +30,7 @@ public abstract  class Pieza {
         this.roja = roja;
     }
 
+
     public int getPosicionX() {
         return posicionX;
     }
@@ -397,6 +398,11 @@ public abstract  class Pieza {
      */
     public  abstract  boolean protegerRey(Tablero tablero, int posicionX, int posicionY, boolean blanco);
 
+
+    /**
+     * muestra los datos de la pieza
+     * @return retorna los datos
+     */
     @Override
     public String toString() {
         return "Pieza(" +

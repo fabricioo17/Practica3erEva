@@ -9,6 +9,11 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 public class Tablero {
     private Pieza[][] table;
+
+
+    /**
+     * constructor de un TABLERO
+     */
     public Tablero()
     {
         table = new Pieza[8][8];
@@ -70,6 +75,13 @@ int jugadorActual=turnoActual;
 
       }
 
+
+    /**
+     * muestra al ganador y actualiza llos jugadores en las tablas
+     * @param rojas color de pieza
+     * @param IDjugador1 identificador de jugador 1
+     * @param IDjugador2 identificador de jugador 2
+     */
       public void mostrarGanador(boolean rojas, String IDjugador1, String IDjugador2){
         if (rojas){
             System.out.println("jugador 1 ganaste");
@@ -85,7 +97,7 @@ int jugadorActual=turnoActual;
 
 
     /**
-     *
+     *inicializamos un tablero nuevo
      */
     public void  startTablero(){
         table[0][0] = new Torre(true,0,0) ;
@@ -126,11 +138,13 @@ int jugadorActual=turnoActual;
 
     }
 
-
+    /**
+     * imprime el tablero
+     */
     public void imprimirTablero(){
         System.out.print(" ");
         for (int i = 0; i < 8; i++) {
-            System.out.print("      " + (i + 1) + "  ");
+            System.out.print("     " + (i + 1) + " ");
         }
         System.out.println();
         dibujarLineas();
@@ -138,6 +152,9 @@ int jugadorActual=turnoActual;
     }
 
 
+    /**
+     * imprimimos el contenido del tablero
+     */
     public void diferenciarContenidoTablero(){
 
         for (int i = 0; i < table.length; i++) {
@@ -193,7 +210,7 @@ int jugadorActual=turnoActual;
 
 
     /**
-     *
+     *metodo que jutna los otros metodos para formar el juego del ajedrez
      * @param teclado teclado donde recibiremos los datos introducidos por el jugador
      * @param numJugador  valor para saber el turno del jugador
      * @return si devuelve un 1 es porque el jugador actual tiene ajque mate
@@ -333,18 +350,27 @@ int jugadorActual=turnoActual;
     }
 
 
-
-
-
-public Pieza obtenerPieza(int posicionX, int posicionY){
+    /**
+     * obtenemos una pieza mediante su posicion
+     * @param posicionX posicion
+     * @param posicionY posicion
+     * @return devuelve la pieza
+     */
+    public Pieza obtenerPieza(int posicionX, int posicionY){
 
          return table[posicionX][posicionY];
 }
 
-public Rey obtenerPiezaReyBlanco(Boolean blanco){
+
+    /**
+     * obtenemos el rey mediante su color
+     * @param roja
+     * @return
+     */
+    public Rey obtenerPiezaReyBlanco(Boolean roja){
         for (int i = 0 ; i< 8;i++){
             for (int j =0; j<8;j++){
-                if (table[i][j] instanceof  Rey  && table[i][j].isRoja()== blanco){
+                if (table[i][j] instanceof  Rey  && table[i][j].isRoja()== roja){
                     return (Rey) table[i][j];
                 }
 
@@ -353,8 +379,11 @@ public Rey obtenerPiezaReyBlanco(Boolean blanco){
         return null;
 }
 
+    /**
+     * dibuja las lineas horizontales del tablero
+     */
     public void dibujarLineas() {
-        int n = ((9) + ((7) * 9));//table.length es 10
+        int n = 55;//table.length es 10
         System.out.print("    ");
         for (int k = 1; k <= n; k++) {
             System.out.print("─");
@@ -394,14 +423,34 @@ public Rey obtenerPiezaReyBlanco(Boolean blanco){
 
 
     //--------------------------------detener juego---------------------------------------//
-public boolean detenerJuego(Scanner teclado){
+
+    /**
+     * pregunta si queremos detener el juego
+     * @param teclado escanner
+     * @return devuelve true si queremos deterlo y false si no
+     */
+    public boolean detenerJuego(Scanner teclado){
     System.out.println("quieren detener el juego y luego continuar?");
     String respuesta =teclado.next();
-    if (respuesta.toLowerCase().contains("s")){
+    if (respuesta.toLowerCase().contains("si")){
         return true;
 
     }
+        else if (respuesta.toLowerCase().contains("no")){
+            return false;
+
+        }
+        else {
+        System.out.println("error");
+    }
+
+
+
     return false;
+
+
+
+
 }
 
 

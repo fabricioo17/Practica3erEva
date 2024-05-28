@@ -53,7 +53,10 @@ public class baseDatos {
     }
 
 
-
+    /**
+     * elimina un jugador mediante su ID
+     * @param ID identificador de cada jugador
+     */
     public static void eliminarJugador(String ID){
         try {
             //Cargar el driver
@@ -84,7 +87,7 @@ public class baseDatos {
      * actualizamos los datos de un jugador existente
      * @param partidaJ indica la cantidad de partidas jugadas
      * @param partidaG la cantidad de partidas ganadas
-     * @param ID necesitamos el ID  para poder encontrar el jugador en la tabla de oracle mediante el where
+     * @param ID identificador de cada jugador
      */
     public  static void actualizarJugador(int partidaJ , int partidaG,String ID){
         try
@@ -111,7 +114,7 @@ public class baseDatos {
 
 
     /**
-     *
+     *imprimer los datos de un jugador mediante su ID
      * @param ID necesitamos el id del jugador para encontrar sus datos
      */
         public static void mostrarDatos(String ID){

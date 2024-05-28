@@ -77,6 +77,11 @@ public class Reina extends Pieza implements MovimientoDiagonal, MovimientoHorizo
                  System.out.print(green+ "♕" + reset);
             }
     }
+
+    /**
+     * muestra los datos de la reina
+     * @return retorna los datos
+     */
     public String mostrarDatosReina(){
 
 

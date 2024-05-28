@@ -14,7 +14,7 @@ public class Torre extends Pieza implements MovimientoHorizontalVertical {
      * sirve para saber que tipo de movimiento haremos luego de verificar si es posible
      * @param teclado
      * @param table
-     * @return devuelve un 0 si
+     * @return devuelve un 0 si el movimiento es correcto, un 1 si come pieza y otro numero si es error
      */
     public int obteneerMovimientoTorre(Scanner teclado, Tablero table) {
 
@@ -54,6 +54,11 @@ public class Torre extends Pieza implements MovimientoHorizontalVertical {
         return false;
     }
 
+
+    /**
+     * muestra los datos de la torre
+     * @return retorna los datos
+     */
     public String mostrarDatosTorre(){
 
 

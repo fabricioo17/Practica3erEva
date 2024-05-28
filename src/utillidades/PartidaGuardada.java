@@ -26,7 +26,7 @@ public class PartidaGuardada {
 
 
     /**
-     *
+     *cargamos la informacion de jugadores del txt en un hashmap
      * @param nombre nombre del fichero donde guardamos los datos
      * @return devuelve un hashmap donde se guarda el el id de los jugadores con una llave que es o y 1 para saber quien es primero
      */
@@ -84,7 +84,7 @@ public class PartidaGuardada {
     }
 
     /**
-     *
+     *guardaremos dentro de un txt la informacion basica de los jugadores en la partida actual
      * @param turno turno donde se quedo la partida guardada
      * @param ID1 identificador 1
      * @param ID2 identificador 2

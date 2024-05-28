@@ -7,6 +7,15 @@ import Tablero.Tablero;
 
 
 public interface MovimientoDiagonal {
+    /**
+     * verificamos si los moviemintos dados sin correctos
+     * @param tablero tablero actual
+     * @param movimientoX movimiento en eje X
+     * @param movimientoY movimiento en eje Y
+     * @param posicionX posicion en eje X
+     * @param posicionY posicion en eje Y
+     * @return devuelve un 0 si es movieminto correcto. 1 si come una pieza y otro numero si es error
+     */
     default int  movimientoDiagonal(Tablero tablero, int movimientoX, int movimientoY, int posicionX, int posicionY){
         int posicionOriginalX= posicionX;
         int posicionOriginalY=posicionY;
@@ -181,7 +190,7 @@ public interface MovimientoDiagonal {
     //---------------------------------------proteger al rey---------------------------------------------//
 
     /**
-     *
+     * hacemos posiblemos movimientos hasta lograr proteger al rey
      * @param tablero neceistamoe el tablero del juego para poder mover la pieza
      * @param posicionX   requerimos la osicion en el eje x para ubicarnos
      * @param posicionY  tambien neceistamos la posicion en el eje Y

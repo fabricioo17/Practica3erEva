@@ -639,6 +639,10 @@ int movimientoY;
   }
 
 
+//---------------------------imprimir----------------------------------------//
+    /**
+     * imprime la forma del rey
+     */
     public void imprimirRey(){
         if (this.roja) {
             System.out.print(red + "♔" + reset);
@@ -648,155 +652,10 @@ int movimientoY;
         }
     }
 
-
-//--------------------espacio abajo
-public int  comerRey(Tablero tablero, int movimientoX,int movimientoY) {
-    int posicionOriginalX = posicionX;
-    int posicionOriginalY = posicionY;
-    Pieza piezaComida;
-    Pieza[][] table = tablero.getTable();
-    //horizontal
-    if (table[movimientoX][movimientoY] != null) {
-        if (movimientoX == posicionX) {
-            if (movimientoY == posicionY - 1 || movimientoY == posicionY + 1) {
-                if (table[movimientoX][movimientoY].isRoja() != this.roja) {
-                    piezaComida = tablero.obtenerPieza(movimientoX, movimientoY);
-                    table[movimientoX][movimientoY] = table[posicionX][posicionY];
-                    table[posicionX][posicionY] = null;
-                    table[movimientoX][movimientoY].setPosicionX(movimientoX); //cambiamos la posicion de la nueva pieza movida, ya que aun mantenia la posicion anteiro
-                    table[movimientoX][movimientoY].setPosicionY(movimientoY);
-                    if (table[movimientoX][movimientoY].confirmarJaque(tablero, movimientoX, movimientoY)) {// es verdad si luego de mover la pieza aun seguimos en jacke, entonces abajo debemos regresar el movimiento
-                        if (table[movimientoX][movimientoY].regresarPiezaComida(tablero, posicionOriginalX, posicionOriginalY, piezaComida) == true) {// si el valor es verdadero  habremos anulado el movimiento
-
-                            return 3;
-
-                        }
-                    }
-                } else {
-                    return 2;
-                }
-            }
-        }
-
-
-        //----------------vertical-------------------------------
-        else if (posicionY == movimientoY) {
-            if (movimientoX == posicionX - 1 || movimientoX == posicionX + 1) {
-                if (table[movimientoX][movimientoY].isRoja() != this.roja) {
-                    piezaComida = tablero.obtenerPieza(movimientoX, movimientoY);
-                    table[movimientoX][movimientoY] = table[posicionX][posicionY];
-                    table[posicionX][posicionY] = null;
-                    table[movimientoX][movimientoY].setPosicionX(movimientoX); //cambiamos la posicion de la nueva pieza movida, ya que aun mantenia la posicion anteiro
-                    table[movimientoX][movimientoY].setPosicionY(movimientoY);
-                    if (table[movimientoX][movimientoY].confirmarJaque(tablero,  movimientoX, movimientoY)) {// es verdad si luego de mover la pieza aun seguimos en jacke, entonces abajo debemos regresar el movimiento
-                        if (table[movimientoX][movimientoY].regresarPiezaComida(tablero, posicionOriginalX, posicionOriginalY, piezaComida) == true) {// si el valor es verdadero  habremos anulado el movimiento
-
-                            return 3;
-
-                        }
-                    }
-                }
-                else {
-                    return 2;
-                }
-            }
-        }
-//-------------------------------------------------------------------------------------------------------------/
-
-
-        //----------------------------------diagonal arriba derecha------------------------------------//
-
-        else if (posicionX -1== movimientoX && posicionY+1==movimientoY) {
-            if (table[movimientoX][movimientoY].isRoja() != this.roja) {
-                piezaComida = tablero.obtenerPieza(movimientoX, movimientoY);
-                table[movimientoX][movimientoY] = table[posicionX][posicionY];
-                table[posicionX][posicionY] = null;
-                table[movimientoX][movimientoY].setPosicionX(movimientoX); //cambiamos la posicion de la nueva pieza movida, ya que aun mantenia la posicion anteiro
-                table[movimientoX][movimientoY].setPosicionY(movimientoY);
-                if (table[movimientoX][movimientoY].confirmarJaque(tablero, movimientoX, movimientoY)) {// es verdad si luego de mover la pieza aun seguimos en jacke, entonces abajo debemos regresar el movimiento
-                    if (table[movimientoX][movimientoY].regresarPiezaComida(tablero, posicionOriginalX, posicionOriginalY, piezaComida) == true) {// si el valor es verdadero  habremos anulado el movimiento
-
-                        return 3;
-
-                    }
-                }
-            }
-            else {
-                return 2;
-            }
-        }
-
-        //----------------------------------------------------------------------------------------------//
-
-        //-----------------------------diagonal arriba izquierda---------------------------------------------------//
-        else if (posicionX -1== movimientoX && posicionY+1==movimientoY) {
-            if (table[movimientoX][movimientoY].isRoja() != this.roja) {
-                piezaComida = tablero.obtenerPieza(movimientoX, movimientoY);
-                table[movimientoX][movimientoY] = table[posicionX][posicionY];
-                table[posicionX][posicionY] = null;
-                table[movimientoX][movimientoY].setPosicionX(movimientoX); //cambiamos la posicion de la nueva pieza movida, ya que aun mantenia la posicion anteiro
-                table[movimientoX][movimientoY].setPosicionY(movimientoY);
-                if (table[movimientoX][movimientoY].confirmarJaque(tablero, movimientoX, movimientoY)) {// es verdad si luego de mover la pieza aun seguimos en jacke, entonces abajo debemos regresar el movimiento
-                    if (table[movimientoX][movimientoY].regresarPiezaComida(tablero, posicionOriginalX, posicionOriginalY, piezaComida) == true) {// si el valor es verdadero  habremos anulado el movimiento
-
-                        return 3;
-
-                    }
-                }
-            }
-            else {
-                return 2;
-            }
-        }
-        //----------------------------------------------------------------------------------------------//
-
-        //--------------------------diagonal abajo derecha--------------------------------------------------------//
-        else if (posicionX -1== movimientoX && posicionY+1==movimientoY) {
-            if (table[movimientoX][movimientoY].isRoja() != this.roja) {
-                piezaComida = tablero.obtenerPieza(movimientoX, movimientoY);
-               cambiarPosicion(tablero,movimientoX,movimientoY);
-                if (table[movimientoX][movimientoY].confirmarJaque(tablero, movimientoX, movimientoY)) {// es verdad si luego de mover la pieza aun seguimos en jacke, entonces abajo debemos regresar el movimiento
-                    if (table[movimientoX][movimientoY].regresarPiezaComida(tablero, posicionOriginalX, posicionOriginalY, piezaComida) == true) {// si el valor es verdadero  habremos anulado el movimiento
-
-                        return 3;
-
-                    }
-                }
-            }
-            else {
-                return 2;
-            }
-        }
-        //----------------------------------------------------------------------------------------------//
-
-        //----------------------------diagonal abajo izquierda------------------------------------------------//
-        else if (posicionX -1== movimientoX && posicionY+1==movimientoY) {
-            if (table[movimientoX][movimientoY].isRoja() != this.roja) {
-                piezaComida = tablero.obtenerPieza(movimientoX, movimientoY);
-               cambiarPosicionPieza(tablero,movimientoX,movimientoY);
-                if (table[movimientoX][movimientoY].confirmarJaque(tablero, movimientoX, movimientoY)) {// es verdad si luego de mover la pieza aun seguimos en jacke, entonces abajo debemos regresar el movimiento
-                    if (table[movimientoX][movimientoY].regresarPiezaComida(tablero, posicionOriginalX, posicionOriginalY,piezaComida) == true) {// si el valor es verdadero  habremos anulado el movimiento
-
-                        return 3;
-
-                    }
-                }
-            }
-            else {
-                return 2;
-            }
-        }
-
-    }
-
-    else {
-        return 3;
-    }
-    return 3;
-}
-
-
-
+    /**
+     * muestra los datos del rey
+     * @return retorna los datos
+     */
     public String mostrarDatosRey(){
 
 

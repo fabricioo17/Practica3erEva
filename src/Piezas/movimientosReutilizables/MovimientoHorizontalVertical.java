@@ -6,6 +6,15 @@ import Tablero.Tablero;
 
 
 public interface MovimientoHorizontalVertical {
+    /**
+     * verificamos si los valores de movimeinto estan dentro del rango permitido y sin desproteger al rey
+     * @param tablero tablero actual
+     * @param movimientoX movimiento en eje X
+     * @param movimientoY movimiento en eje Y
+     * @param posicionX posicion en eje X
+     * @param posicionY posicion en eje Y
+     * @return devuekve un 0 si es moviemiento correcto, 1 si come una pieza y cualquier otro si es error
+     */
     default int movimientoVertical(Tablero tablero, int movimientoX, int movimientoY, int posicionX, int posicionY) {
        int posicionOriginalX= posicionX;
        int posicionOriginalY=posicionY;
@@ -133,7 +142,7 @@ Pieza piezaComida;
 // luego de ver que el rey no se puede mover en ningun lado viene ahora la proteccion de cada pieza si ninguna pieza sobrante logra protege al rey, seera jaque mate
 
     /**
-     *
+     *hacemos posibles movientos para ver si podemos proteger al rey
      * @param tablero requerimos el tablero para poder movilizarnos
      * @param posicionX
      * @param posicionY
